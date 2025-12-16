@@ -41,13 +41,13 @@ sap.ui.define([
             // Get OData model
             var oDataModel = this.getOwnerComponent().getModel();
 
-            // Call authentication service
-            var sPath = "/ZQUALITY_2003('" + sUsername + "')";
-            
+            // Call authentication service - using the correct format from the response
+            var sPath = "/ZQUALITY_2003(username='" + sUsername + "')";
+
             oDataModel.read(sPath, {
                 success: function (oData) {
                     oView.setBusy(false);
-                    
+
                     // Check if password matches
                     if (oData.password === sPassword && oData.login_status === "Success") {
                         // Store user info in session
@@ -67,7 +67,7 @@ sap.ui.define([
                 }.bind(this),
                 error: function (oError) {
                     oView.setBusy(false);
-                    
+
                     // User not found or service error
                     oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
                     oModel.setProperty("/showError", true);
