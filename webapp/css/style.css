@@ -149,6 +149,9 @@
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    line-height: 1.2;
+    padding: 0.5rem 0;
+    display: block;
 }
 
 .tileLabel {
@@ -267,6 +270,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

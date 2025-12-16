@@ -54,8 +54,13 @@ sap.ui.define([
                     oView.setBusy(false);
 
                     // Check if password matches
+                    // Log the full data object to be sure
+                    console.log("Full OData response:", JSON.stringify(oData));
+
                     if (oData.password === sPassword && oData.login_status === "Success") {
                         console.log("Credentials match. Navigating to Dashboard...");
+                        MessageBox.success("Login Successful! Navigating...");
+
                         // Store user info in session
                         var oUserModel = new JSONModel({
                             username: oData.username,
@@ -77,6 +82,9 @@ sap.ui.define([
                             expectedPassword: sPassword,
                             status: oData.login_status
                         });
+
+                        MessageBox.error("Login Failed: Password or status mismatch.\nReceived: " + oData.password + ", " + oData.login_status);
+
                         // Invalid credentials
                         oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
                         oModel.setProperty("/showError", true);
