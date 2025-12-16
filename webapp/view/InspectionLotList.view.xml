@@ -1,0 +1,86 @@
+<mvc:View
+    controllerName="com.kaar.quality.controller.InspectionLotList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page id="inspectionLotListPage" title="{i18n>inspectionLotListTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <Table
+                id="inspectionLotTable"
+                items="{
+                    path: '/inspectionLots',
+                    sorter: {
+                        path: 'InspectionLot',
+                        descending: true
+                    }
+                }"
+                mode="SingleSelectMaster"
+                selectionChange="onLotSelect"
+                class="inspectionLotTable">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>inspectionLots}" level="H2" />
+                        <ToolbarSpacer />
+                        <SearchField
+                            width="50%"
+                            placeholder="{i18n>searchPlaceholder}"
+                            search="onSearch" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="12em">
+                        <Text text="{i18n>inspectionLot}" />
+                    </Column>
+                    <Column width="10em" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>material}" />
+                    </Column>
+                    <Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>plant}" />
+                    </Column>
+                    <Column width="8em" minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="{i18n>inspectionType}" />
+                    </Column>
+                    <Column width="10em" minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                        <Text text="{i18n>lotQuantity}" />
+                    </Column>
+                    <Column width="8em" minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="{i18n>uom}" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="{i18n>usageDecision}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Active">
+                        <cells>
+                            <ObjectIdentifier
+                                title="{InspectionLot}"
+                                text="{MaterialDesc}" />
+                            <Text text="{MaterialNumber}" />
+                            <Text text="{Plant}" />
+                            <Text text="{InspectionType}" />
+                            <ObjectNumber
+                                number="{LotQuantity}"
+                                unit="{UoM}" />
+                            <Text text="{UoM}" />
+                            <ObjectStatus
+                                text="{path: 'UsageDecisionCode', formatter: '.formatUsageDecision'}"
+                                state="{path: 'UsageDecisionCode', formatter: '.formatUsageDecisionState'}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="{i18n>recordResults}"
+                    type="Emphasized"
+                    press="onRecordResults"
+                    enabled="{= ${/selectedLot} !== null}" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

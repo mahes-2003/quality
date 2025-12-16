@@ -1,0 +1,115 @@
+<mvc:View
+    controllerName="com.kaar.quality.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    displayBlock="true">
+    <Page id="dashboardPage" title="{i18n>dashboardTitle}" showNavButton="false">
+        <headerContent>
+            <Button
+                icon="sap-icon://log"
+                text="{i18n>logout}"
+                press="onLogout"
+                type="Transparent" />
+        </headerContent>
+        <content>
+            <l:VerticalLayout width="100%" class="dashboardContainer">
+                <l:content>
+                    <!-- Welcome Section -->
+                    <VBox class="welcomeSection">
+                        <items>
+                            <Title text="{i18n>welcomeTitle}" level="H2" />
+                            <Text text="{i18n>welcomeSubtitle}" class="welcomeSubtitle" />
+                        </items>
+                    </VBox>
+
+                    <!-- Tiles Section -->
+                    <l:Grid
+                        defaultSpan="L4 M6 S12"
+                        class="tilesGrid">
+                        <l:content>
+                            <!-- Inspection Lot Tile -->
+                            <f:Card class="dashboardTile inspectionLotTile">
+                                <f:header>
+                                    <f:cards:Header
+                                        title="{i18n>inspectionLotTitle}"
+                                        subtitle="{i18n>inspectionLotSubtitle}"
+                                        iconSrc="sap-icon://inspection" />
+                                </f:header>
+                                <f:content>
+                                    <VBox alignItems="Center" class="tileContent">
+                                        <items>
+                                            <ObjectNumber
+                                                number="{/inspectionLotCount}"
+                                                emphasized="true"
+                                                class="tileNumber" />
+                                            <Text text="{i18n>totalLots}" class="tileLabel" />
+                                            <Button
+                                                text="{i18n>viewDetails}"
+                                                type="Emphasized"
+                                                press="onNavigateToInspectionLots"
+                                                class="tileButton" />
+                                        </items>
+                                    </VBox>
+                                </f:content>
+                            </f:Card>
+
+                            <!-- Result Records Tile -->
+                            <f:Card class="dashboardTile resultRecordsTile">
+                                <f:header>
+                                    <f:cards:Header
+                                        title="{i18n>resultRecordsTitle}"
+                                        subtitle="{i18n>resultRecordsSubtitle}"
+                                        iconSrc="sap-icon://document-text" />
+                                </f:header>
+                                <f:content>
+                                    <VBox alignItems="Center" class="tileContent">
+                                        <items>
+                                            <ObjectNumber
+                                                number="{/resultRecordsCount}"
+                                                emphasized="true"
+                                                class="tileNumber" />
+                                            <Text text="{i18n>pendingRecords}" class="tileLabel" />
+                                            <Button
+                                                text="{i18n>viewDetails}"
+                                                type="Emphasized"
+                                                press="onNavigateToResultRecords"
+                                                class="tileButton" />
+                                        </items>
+                                    </VBox>
+                                </f:content>
+                            </f:Card>
+
+                            <!-- Usage Decision Tile -->
+                            <f:Card class="dashboardTile usageDecisionTile">
+                                <f:header>
+                                    <f:cards:Header
+                                        title="{i18n>usageDecisionTitle}"
+                                        subtitle="{i18n>usageDecisionSubtitle}"
+                                        iconSrc="sap-icon://decision" />
+                                </f:header>
+                                <f:content>
+                                    <VBox alignItems="Center" class="tileContent">
+                                        <items>
+                                            <ObjectNumber
+                                                number="{/usageDecisionCount}"
+                                                emphasized="true"
+                                                class="tileNumber" />
+                                            <Text text="{i18n>pendingDecisions}" class="tileLabel" />
+                                            <Button
+                                                text="{i18n>viewDetails}"
+                                                type="Emphasized"
+                                                press="onNavigateToUsageDecision"
+                                                class="tileButton" />
+                                        </items>
+                                    </VBox>
+                                </f:content>
+                            </f:Card>
+                        </l:content>
+                    </l:Grid>
+                </l:content>
+            </l:VerticalLayout>
+        </content>
+    </Page>
+</mvc:View>

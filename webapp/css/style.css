@@ -1,1 +1,303 @@
-/* Enter your custom styles here */
+/* Quality Engineer Portal - Premium Styling */
+
+/* ===== Global Styles ===== */
+.sapMPage {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* ===== Login Page ===== */
+.loginPage {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.loginContainer {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loginHeader {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.loginLogo {
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.loginTitle {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.loginSubtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+.loginCard {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.loginInput {
+    margin-bottom: 1rem;
+}
+
+.loginInput input {
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.loginInput input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.loginError {
+    margin: 1rem 0;
+    border-radius: 8px;
+}
+
+.loginButton {
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.loginButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.loginFooter {
+    margin-top: 2rem;
+}
+
+.footerText {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* ===== Dashboard ===== */
+.dashboardContainer {
+    padding: 2rem;
+}
+
+.welcomeSection {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcomeSubtitle {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.tilesGrid {
+    margin-top: 1.5rem;
+}
+
+.dashboardTile {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.dashboardTile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.inspectionLotTile {
+    border-top: 4px solid #3f51b5;
+}
+
+.resultRecordsTile {
+    border-top: 4px solid #ff9800;
+}
+
+.usageDecisionTile {
+    border-top: 4px solid #4caf50;
+}
+
+.tileContent {
+    padding: 2rem;
+}
+
+.tileNumber {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.tileLabel {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tileButton {
+    margin-top: 1rem;
+    border-radius: 8px;
+}
+
+/* ===== Inspection Lot List ===== */
+.inspectionLotTable {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inspectionLotTable .sapMListTblRow:hover {
+    background-color: #f5f7fa;
+}
+
+/* ===== Result Recording ===== */
+.resultRecordingContainer {
+    padding: 1.5rem;
+}
+
+.lotInfoPanel,
+.resultRecordingPanel {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.infoStrip,
+.warningStrip {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.stockInput {
+    margin-bottom: 1rem;
+}
+
+/* ===== Usage Decision ===== */
+.usageDecisionContainer {
+    padding: 1.5rem;
+}
+
+.resultSummaryPanel,
+.validationPanel {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.successStrip,
+.errorStrip {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.comparisonBox {
+    padding: 1.5rem;
+    background: #f5f7fa;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.comparisonRow {
+    padding: 1rem;
+}
+
+.compareIcon {
+    color: #667eea;
+    margin: 0 2rem;
+    align-self: center;
+}
+
+.largeNumber {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .loginCard {
+        min-width: 300px;
+        padding: 1.5rem;
+    }
+
+    .loginTitle {
+        font-size: 2rem;
+    }
+
+    .dashboardContainer,
+    .resultRecordingContainer,
+    .usageDecisionContainer {
+        padding: 1rem;
+    }
+
+    .tileNumber {
+        font-size: 2.5rem;
+    }
+
+    .compareIcon {
+        margin: 1rem;
+    }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboardTile,
+.lotInfoPanel,
+.resultRecordingPanel,
+.validationPanel {
+    animation: fadeIn 0.5s ease;
+}
+
+/* ===== Status Badges ===== */
+.sapMObjectStatus.sapMObjectStatusSuccess {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+}
+
+.sapMObjectStatus.sapMObjectStatusError {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+}
+
+.sapMObjectStatus.sapMObjectStatusWarning {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+}

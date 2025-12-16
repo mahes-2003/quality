@@ -1,0 +1,78 @@
+sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox"
+], function (Controller, JSONModel, MessageBox) {
+    "use strict";
+
+    return Controller.extend("com.kaar.quality.controller.Login", {
+
+        onInit: function () {
+            // Initialize login model
+            var oLoginModel = new JSONModel({
+                username: "",
+                password: "",
+                errorMessage: "",
+                showError: false
+            });
+            this.getView().setModel(oLoginModel);
+        },
+
+        onLogin: function () {
+            var oView = this.getView();
+            var oModel = oView.getModel();
+            var sUsername = oModel.getProperty("/username");
+            var sPassword = oModel.getProperty("/password");
+
+            // Reset error state
+            oModel.setProperty("/showError", false);
+            oModel.setProperty("/errorMessage", "");
+
+            // Validate inputs
+            if (!sUsername || !sPassword) {
+                oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorEmpty"));
+                oModel.setProperty("/showError", true);
+                return;
+            }
+
+            // Show busy indicator
+            oView.setBusy(true);
+
+            // Get OData model
+            var oDataModel = this.getOwnerComponent().getModel();
+
+            // Call authentication service
+            var sPath = "/ZQUALITY_2003('" + sUsername + "')";
+            
+            oDataModel.read(sPath, {
+                success: function (oData) {
+                    oView.setBusy(false);
+                    
+                    // Check if password matches
+                    if (oData.password === sPassword && oData.login_status === "Success") {
+                        // Store user info in session
+                        var oUserModel = new JSONModel({
+                            username: oData.username,
+                            isAuthenticated: true
+                        });
+                        this.getOwnerComponent().setModel(oUserModel, "user");
+
+                        // Navigate to Dashboard
+                        this.getOwnerComponent().getRouter().navTo("Dashboard");
+                    } else {
+                        // Invalid credentials
+                        oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
+                        oModel.setProperty("/showError", true);
+                    }
+                }.bind(this),
+                error: function (oError) {
+                    oView.setBusy(false);
+                    
+                    // User not found or service error
+                    oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
+                    oModel.setProperty("/showError", true);
+                }.bind(this)
+            });
+        }
+    });
+});

@@ -33,6 +33,13 @@
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "inspectionService": {
+        "uri": "/sap/opu/odata/sap/ZINSPECTION_2003_CDS/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0"
+        }
       }
     }
   },
@@ -58,7 +65,8 @@
       "minUI5Version": "1.120.14",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -74,6 +82,11 @@
       },
       "": {
         "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "inspection": {
+        "dataSource": "inspectionService",
         "preload": true,
         "settings": {}
       }
@@ -99,17 +112,61 @@
       },
       "routes": [
         {
-          "name": "RouteView1",
-          "pattern": ":?query:",
+          "name": "Login",
+          "pattern": "",
           "target": [
-            "TargetView1"
+            "TargetLogin"
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "pattern": "dashboard",
+          "target": [
+            "TargetDashboard"
+          ]
+        },
+        {
+          "name": "InspectionLotList",
+          "pattern": "inspectionlots/:filter:",
+          "target": [
+            "TargetInspectionLotList"
+          ]
+        },
+        {
+          "name": "ResultRecording",
+          "pattern": "resultrecording/{lotId}",
+          "target": [
+            "TargetResultRecording"
+          ]
+        },
+        {
+          "name": "UsageDecision",
+          "pattern": "usagedecision/{lotId}",
+          "target": [
+            "TargetUsageDecision"
           ]
         }
       ],
       "targets": {
-        "TargetView1": {
-          "id": "View1",
-          "name": "View1"
+        "TargetLogin": {
+          "id": "Login",
+          "name": "Login"
+        },
+        "TargetDashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
+        },
+        "TargetInspectionLotList": {
+          "id": "InspectionLotList",
+          "name": "InspectionLotList"
+        },
+        "TargetResultRecording": {
+          "id": "ResultRecording",
+          "name": "ResultRecording"
+        },
+        "TargetUsageDecision": {
+          "id": "UsageDecision",
+          "name": "UsageDecision"
         }
       }
     },

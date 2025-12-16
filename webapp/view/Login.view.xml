@@ -1,0 +1,92 @@
+<mvc:View
+    controllerName="com.kaar.quality.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+    <Page id="loginPage" showHeader="false" class="loginPage">
+        <content>
+            <l:VerticalLayout width="100%" class="loginContainer">
+                <l:content>
+                    <!-- Logo and Title Section -->
+                    <VBox alignItems="Center" class="loginHeader">
+                        <items>
+                            <Image src="sap-icon://quality-issue" class="loginLogo" />
+                            <Title text="{i18n>loginTitle}" class="loginTitle" />
+                            <Text text="{i18n>loginSubtitle}" class="loginSubtitle" />
+                        </items>
+                    </VBox>
+
+                    <!-- Login Form -->
+                    <VBox alignItems="Center" class="loginFormContainer">
+                        <items>
+                            <VBox class="loginCard">
+                                <items>
+                                    <f:SimpleForm
+                                        id="loginForm"
+                                        editable="true"
+                                        layout="ResponsiveGridLayout"
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="1"
+                                        columnsL="1"
+                                        columnsM="1"
+                                        singleContainerFullSize="true">
+                                        <f:content>
+                                            <Label text="{i18n>username}" required="true" />
+                                            <Input
+                                                id="usernameInput"
+                                                value="{/username}"
+                                                placeholder="{i18n>usernamePlaceholder}"
+                                                type="Text"
+                                                class="loginInput" />
+                                            
+                                            <Label text="{i18n>password}" required="true" />
+                                            <Input
+                                                id="passwordInput"
+                                                value="{/password}"
+                                                placeholder="{i18n>passwordPlaceholder}"
+                                                type="Password"
+                                                class="loginInput" />
+                                        </f:content>
+                                    </f:SimpleForm>
+
+                                    <!-- Error Message -->
+                                    <MessageStrip
+                                        id="errorMessage"
+                                        text="{/errorMessage}"
+                                        type="Error"
+                                        showIcon="true"
+                                        visible="{/showError}"
+                                        class="loginError" />
+
+                                    <!-- Login Button -->
+                                    <Button
+                                        id="loginButton"
+                                        text="{i18n>loginButton}"
+                                        type="Emphasized"
+                                        width="100%"
+                                        press="onLogin"
+                                        class="loginButton" />
+                                </items>
+                            </VBox>
+                        </items>
+                    </VBox>
+
+                    <!-- Footer -->
+                    <VBox alignItems="Center" class="loginFooter">
+                        <items>
+                            <Text text="{i18n>loginFooter}" class="footerText" />
+                        </items>
+                    </VBox>
+                </l:content>
+            </l:VerticalLayout>
+        </content>
+    </Page>
+</mvc:View>

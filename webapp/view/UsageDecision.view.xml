@@ -1,0 +1,155 @@
+<mvc:View
+    controllerName="com.kaar.quality.controller.UsageDecision"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+    <Page id="usageDecisionPage" title="{i18n>usageDecisionTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <l:VerticalLayout width="100%" class="usageDecisionContainer">
+                <l:content>
+                    <!-- Lot Information Panel -->
+                    <Panel headerText="{i18n>lotInformation}" class="lotInfoPanel">
+                        <content>
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                columnsXL="2"
+                                columnsL="2"
+                                columnsM="1">
+                                <f:content>
+                                    <Label text="{i18n>inspectionLot}" />
+                                    <Text text="{/lot/InspectionLot}" />
+                                    
+                                    <Label text="{i18n>material}" />
+                                    <Text text="{/lot/MaterialNumber} - {/lot/MaterialDesc}" />
+                                    
+                                    <Label text="{i18n>plant}" />
+                                    <Text text="{/lot/Plant}" />
+                                    
+                                    <Label text="{i18n>lotQuantity}" />
+                                    <ObjectNumber
+                                        number="{/lot/LotQuantity}"
+                                        unit="{/lot/UoM}"
+                                        emphasized="true" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </content>
+                    </Panel>
+
+                    <!-- Result Summary Panel -->
+                    <Panel headerText="{i18n>resultSummary}" class="resultSummaryPanel">
+                        <content>
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                columnsXL="2"
+                                columnsL="2"
+                                columnsM="1">
+                                <f:content>
+                                    <Label text="{i18n>unrestrictedStock}" />
+                                    <ObjectNumber
+                                        number="{/resultRecord/unrestrictedStock}"
+                                        unit="{/lot/UoM}" />
+                                    
+                                    <Label text="{i18n>blockStock}" />
+                                    <ObjectNumber
+                                        number="{/resultRecord/blockStock}"
+                                        unit="{/lot/UoM}" />
+                                    
+                                    <Label text="{i18n>productionStock}" />
+                                    <ObjectNumber
+                                        number="{/resultRecord/productionStock}"
+                                        unit="{/lot/UoM}" />
+                                    
+                                    <Label text="{i18n>totalInspected}" />
+                                    <ObjectNumber
+                                        number="{/resultRecord/totalInspected}"
+                                        unit="{/lot/UoM}"
+                                        emphasized="true"
+                                        state="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity} ? 'Success' : 'Error'}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </content>
+                    </Panel>
+
+                    <!-- Validation Panel -->
+                    <Panel headerText="{i18n>validation}" class="validationPanel">
+                        <content>
+                            <MessageStrip
+                                text="{i18n>quantityMatchSuccess}"
+                                type="Success"
+                                showIcon="true"
+                                visible="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity}}"
+                                class="successStrip" />
+                            
+                            <MessageStrip
+                                text="{i18n>quantityMismatchError}"
+                                type="Error"
+                                showIcon="true"
+                                visible="{= ${/resultRecord/totalInspected} !== ${/lot/LotQuantity}}"
+                                class="errorStrip" />
+                            
+                            <VBox class="comparisonBox">
+                                <items>
+                                    <HBox justifyContent="SpaceBetween" class="comparisonRow">
+                                        <items>
+                                            <VBox>
+                                                <items>
+                                                    <Label text="{i18n>lotQuantity}" />
+                                                    <ObjectNumber
+                                                        number="{/lot/LotQuantity}"
+                                                        unit="{/lot/UoM}"
+                                                        emphasized="true"
+                                                        class="largeNumber" />
+                                                </items>
+                                            </VBox>
+                                            <core:Icon src="sap-icon://compare" size="2rem" class="compareIcon" xmlns:core="sap.ui.core" />
+                                            <VBox>
+                                                <items>
+                                                    <Label text="{i18n>totalInspected}" />
+                                                    <ObjectNumber
+                                                        number="{/resultRecord/totalInspected}"
+                                                        unit="{/lot/UoM}"
+                                                        emphasized="true"
+                                                        state="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity} ? 'Success' : 'Error'}"
+                                                        class="largeNumber" />
+                                                </items>
+                                            </VBox>
+                                        </items>
+                                    </HBox>
+                                </items>
+                            </VBox>
+                        </content>
+                    </Panel>
+                </l:content>
+            </l:VerticalLayout>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="{i18n>approve}"
+                    type="Accept"
+                    icon="sap-icon://accept"
+                    press="onApprove"
+                    enabled="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity}}" />
+                <Button
+                    text="{i18n>reject}"
+                    type="Reject"
+                    icon="sap-icon://decline"
+                    press="onReject"
+                    enabled="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity}}" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

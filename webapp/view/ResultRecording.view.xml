@@ -1,0 +1,144 @@
+<mvc:View
+    controllerName="com.kaar.quality.controller.ResultRecording"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+    <Page id="resultRecordingPage" title="{i18n>resultRecordingTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <l:VerticalLayout width="100%" class="resultRecordingContainer">
+                <l:content>
+                    <!-- Lot Information Panel -->
+                    <Panel headerText="{i18n>lotInformation}" class="lotInfoPanel">
+                        <content>
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                emptySpanXL="0"
+                                emptySpanL="0"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="2"
+                                columnsL="2"
+                                columnsM="1">
+                                <f:content>
+                                    <Label text="{i18n>inspectionLot}" />
+                                    <Text text="{/lot/InspectionLot}" />
+                                    
+                                    <Label text="{i18n>material}" />
+                                    <Text text="{/lot/MaterialNumber} - {/lot/MaterialDesc}" />
+                                    
+                                    <Label text="{i18n>plant}" />
+                                    <Text text="{/lot/Plant}" />
+                                    
+                                    <Label text="{i18n>lotQuantity}" />
+                                    <ObjectNumber
+                                        number="{/lot/LotQuantity}"
+                                        unit="{/lot/UoM}" />
+                                    
+                                    <Label text="{i18n>usageDecision}" />
+                                    <ObjectStatus
+                                        text="{path: '/lot/UsageDecisionCode', formatter: '.formatUsageDecision'}"
+                                        state="{path: '/lot/UsageDecisionCode', formatter: '.formatUsageDecisionState'}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </content>
+                    </Panel>
+
+                    <!-- Result Recording Panel -->
+                    <Panel headerText="{i18n>resultRecording}" class="resultRecordingPanel">
+                        <content>
+                            <MessageStrip
+                                text="{i18n>resultRecordingInfo}"
+                                type="Information"
+                                showIcon="true"
+                                class="infoStrip" />
+                            
+                            <MessageStrip
+                                text="{i18n>readOnlyMessage}"
+                                type="Warning"
+                                showIcon="true"
+                                visible="{/isReadOnly}"
+                                class="warningStrip" />
+                            
+                            <f:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                emptySpanXL="0"
+                                emptySpanL="0"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="1"
+                                columnsL="1"
+                                columnsM="1">
+                                <f:content>
+                                    <!-- Unrestricted Stock -->
+                                    <Label text="{i18n>unrestrictedStock}" required="true" />
+                                    <Input
+                                        value="{/resultRecord/unrestrictedStock}"
+                                        type="Number"
+                                        enabled="{= !${/isReadOnly}}"
+                                        liveChange="onQuantityChange"
+                                        description="{i18n>unrestrictedStockDesc}"
+                                        class="stockInput" />
+                                    
+                                    <!-- Block Stock -->
+                                    <Label text="{i18n>blockStock}" required="true" />
+                                    <Input
+                                        value="{/resultRecord/blockStock}"
+                                        type="Number"
+                                        enabled="{= !${/isReadOnly}}"
+                                        liveChange="onQuantityChange"
+                                        description="{i18n>blockStockDesc}"
+                                        class="stockInput" />
+                                    
+                                    <!-- Production Stock -->
+                                    <Label text="{i18n>productionStock}" required="true" />
+                                    <Input
+                                        value="{/resultRecord/productionStock}"
+                                        type="Number"
+                                        enabled="{= !${/isReadOnly}}"
+                                        liveChange="onQuantityChange"
+                                        description="{i18n>productionStockDesc}"
+                                        class="stockInput" />
+                                    
+                                    <!-- Total Inspected -->
+                                    <Label text="{i18n>totalInspected}" />
+                                    <ObjectNumber
+                                        number="{/resultRecord/totalInspected}"
+                                        unit="{/lot/UoM}"
+                                        emphasized="true"
+                                        state="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity} ? 'Success' : 'Warning'}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </content>
+                    </Panel>
+                </l:content>
+            </l:VerticalLayout>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="{i18n>save}"
+                    type="Emphasized"
+                    press="onSave"
+                    enabled="{= !${/isReadOnly}}" />
+                <Button
+                    text="{i18n>makeDecision}"
+                    type="Accept"
+                    press="onMakeDecision"
+                    visible="{= ${/resultRecord/totalInspected} === ${/lot/LotQuantity} &amp;&amp; !${/isReadOnly}}" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
