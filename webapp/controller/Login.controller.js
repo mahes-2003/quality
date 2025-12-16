@@ -28,8 +28,11 @@ sap.ui.define([
             oModel.setProperty("/showError", false);
             oModel.setProperty("/errorMessage", "");
 
+            console.log("Login attempt:", { username: sUsername, password: sPassword });
+
             // Validate inputs
             if (!sUsername || !sPassword) {
+                console.log("Validation failed: Empty username or password");
                 oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorEmpty"));
                 oModel.setProperty("/showError", true);
                 return;
@@ -43,13 +46,16 @@ sap.ui.define([
 
             // Call authentication service - using the correct format from the response
             var sPath = "/ZQUALITY_2003(username='" + sUsername + "')";
+            console.log("Reading OData path:", sPath);
 
             oDataModel.read(sPath, {
                 success: function (oData) {
+                    console.log("OData read success. Data received:", oData);
                     oView.setBusy(false);
 
                     // Check if password matches
                     if (oData.password === sPassword && oData.login_status === "Success") {
+                        console.log("Credentials match. Navigating to Dashboard...");
                         // Store user info in session
                         var oUserModel = new JSONModel({
                             username: oData.username,
@@ -58,19 +64,40 @@ sap.ui.define([
                         this.getOwnerComponent().setModel(oUserModel, "user");
 
                         // Navigate to Dashboard
-                        this.getOwnerComponent().getRouter().navTo("Dashboard");
+                        try {
+                            this.getOwnerComponent().getRouter().navTo("Dashboard");
+                            console.log("Navigation triggered.");
+                        } catch (e) {
+                            console.error("Navigation error:", e);
+                            MessageBox.error("Navigation failed: " + e.message);
+                        }
                     } else {
+                        console.warn("Credentials mismatch or login_status not Success.", {
+                            receivedPassword: oData.password,
+                            expectedPassword: sPassword,
+                            status: oData.login_status
+                        });
                         // Invalid credentials
                         oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
                         oModel.setProperty("/showError", true);
                     }
                 }.bind(this),
                 error: function (oError) {
+                    console.error("OData read failed:", oError);
                     oView.setBusy(false);
 
                     // User not found or service error
+                    var sErrorMsg = "Login failed. Please check console for details.";
+                    try {
+                        if (oError.responseText) {
+                            console.error("Error response text:", oError.responseText);
+                            // Optional: Try to parse error text if it's JSON
+                        }
+                    } catch (e) { /* ignore */ }
+
                     oModel.setProperty("/errorMessage", this.getView().getModel("i18n").getResourceBundle().getText("loginErrorInvalid"));
                     oModel.setProperty("/showError", true);
+                    MessageBox.error("Service Error: " + oError.message || "Unknown error during login.");
                 }.bind(this)
             });
         }

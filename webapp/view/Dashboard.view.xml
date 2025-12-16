@@ -4,6 +4,7 @@
     xmlns="sap.m"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
     displayBlock="true">
     <Page id="dashboardPage" title="{i18n>dashboardTitle}" showNavButton="false">
         <headerContent>
@@ -32,7 +33,7 @@
                             <!-- Inspection Lot Tile -->
                             <f:Card class="dashboardTile inspectionLotTile">
                                 <f:header>
-                                    <f:cards:Header
+                                    <cards:Header
                                         title="{i18n>inspectionLotTitle}"
                                         subtitle="{i18n>inspectionLotSubtitle}"
                                         iconSrc="sap-icon://inspection" />
@@ -58,7 +59,7 @@
                             <!-- Result Records Tile -->
                             <f:Card class="dashboardTile resultRecordsTile">
                                 <f:header>
-                                    <f:cards:Header
+                                    <cards:Header
                                         title="{i18n>resultRecordsTitle}"
                                         subtitle="{i18n>resultRecordsSubtitle}"
                                         iconSrc="sap-icon://document-text" />
@@ -84,7 +85,7 @@
                             <!-- Usage Decision Tile -->
                             <f:Card class="dashboardTile usageDecisionTile">
                                 <f:header>
-                                    <f:cards:Header
+                                    <cards:Header
                                         title="{i18n>usageDecisionTitle}"
                                         subtitle="{i18n>usageDecisionSubtitle}"
                                         iconSrc="sap-icon://decision" />
